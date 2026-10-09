@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#071421"><meta name="description" content="Documento técnico da pesquisa EduPredict Analytics, publicado após revisão."><title>Pipeline de pesquisa — EduPredict Analytics</title><link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../assets/styles.css"><script defer src="../../assets/main.js"></script></head><body>
+<a class="skip-link" href="#conteudo">Ir para o conteúdo</a><header class="site-header"><div class="container header-inner"><a class="brand" href="../../" aria-label="EduPredict Analytics, página inicial"><span class="brand-mark" aria-hidden="true">E</span><span><span class="brand-name">EduPredict Analytics</span><span class="brand-small">TGI I → TGI II</span></span></a><button class="menu-button" type="button" data-menu-button aria-expanded="false" aria-controls="navegacao">Menu</button><nav id="navegacao" class="nav" data-nav aria-label="Navegação principal"><a href="../../">Início</a><a href="../../estudo-anterior/">Estudo anterior</a><a href="../../pesquisa-atual/">Pesquisa atual</a><a href="../../banner/">Banner</a><a href="../../acompanhamento/">Acompanhamento</a></nav></div></header>
+<main id="conteudo"><section class="page-hero"><div class="container"><div class="crumbs"><a href="../../">Início</a><span>/</span><a href="../../acompanhamento/">Acompanhamento</a><span>/</span>Documento técnico</div><div class="eyebrow light">Fonte do repositório EPA · experimental</div><h1>Pipeline de pesquisa</h1><p>Espelho revisado de um documento técnico do projeto. O conteúdo abaixo não representa resultado final do TGI II.</p></div></section><section class="section"><div class="container article-layout"><article class="article source-doc"><h2>Pipeline de pesquisa do EduPredict</h2>
+<p>Esta pasta contém a implementação experimental usada para produzir as evidências do Full Paper. Ela é separada do código legado em <code>02-ML</code>, <code>03-GUI</code> e <code>04-API</code>.</p>
+<h3>Execução rápida</h3>
+<p>Na raiz de <code>repo-analysis</code>:</p>
+<pre><code>python -m research.run_initial_pipeline</code></pre>
+<p>O comando gera:</p>
+<ul>
+<li><code>research/data/generated/experimental_dataset.csv</code>;</li>
+<li><code>research/data/generated/experimental_dataset.manifest.json</code>;</li>
+<li><code>research/data/snapshots/experimental_dataset_M1.csv</code>;</li>
+<li><code>research/data/snapshots/experimental_dataset_M2.csv</code>;</li>
+<li><code>research/data/snapshots/experimental_dataset_M3.csv</code>;</li>
+<li><code>research/reports/legacy_audit.json</code>;</li>
+<li><code>research/reports/initial_benchmark.json</code>;</li>
+<li><code>research/reports/initial_pipeline_summary.json</code>;</li>
+<li><code>research/artifacts/M1.pkl</code>, <code>M2.pkl</code>, <code>M3.pkl</code> e seus metadados para a API.</li>
+</ul>
+<h3>Usar pela API e pela interface</h3>
+<p>Com o ambiente virtual ativado, instale as dependências da API uma vez:</p>
+<pre><code>pip install -r .\04-API\requirements.txt</code></pre>
+<p>Depois de executar a pipeline, inicie o backend entrando na pasta da API:</p>
+<pre><code>Set-Location .\04-API
+python -m uvicorn main:app --host 127.0.0.1 --port 7654</code></pre>
+<p>Os endpoints novos são:</p>
+<ul>
+<li><code>GET /api/research/status</code> — verifica snapshots e artefatos;</li>
+<li><code>GET /api/research/snapshots</code> — catálogo dos cortes M1/M2/M3;</li>
+<li><code>GET /api/research/snapshots/M2/samples?limit=30</code> — amostras com predição;</li>
+<li><code>POST /api/research/predict</code> — inferência para um vetor de features.</li>
+</ul>
+<p>O status identifica explicitamente a fonte como <code>synthetic</code>, marca o fluxo como experimental e só retorna <code>ready</code> quando os três snapshots e os respectivos pares de artefatos (<code>.pkl</code> + <code>.json</code>) estão disponíveis. A predição manual rejeita features ausentes, extras, não finitas ou fora do intervalo esperado.</p>
+<p>Em outro terminal, para iniciar a interface:</p>
+<pre><code>Set-Location .\05-WEB
+npm install
+npm run dev</code></pre>
+<p>A tela <strong>Pesquisa temporal</strong> aparece no menu lateral e consome exclusivamente o namespace <code>/api/research</code>. Ela exibe a prontidão da pipeline, a fonte dos dados, filtros por aluno e ano e todas as features disponíveis em cada corte. Os dados continuam identificados como sintéticos e os artefatos como experimentais; nenhum deles deve ser apresentado como resultado final do artigo.</p>
+<h3>Testes</h3>
+<pre><code>pytest -q research/tests</code></pre>
+<h3>Limite desta versão</h3>
+<p>Os resultados gerados são um primeiro experimento técnico. Ainda não são os resultados finais do artigo. Antes da publicação, o protocolo deverá receber a validação temporal e agrupada final, revisão de qualidade dos rótulos, calibração, análise de equidade e integração com a API.</p><div class="notice"><p><strong>Origem e estágio.</strong> Documento técnico sincronizado do repositório EPA após revisão. Verifique a versão e o contexto antes de citar números como resultados acadêmicos.</p></div></article><aside class="side-index" aria-label="Informações do documento"><strong>Fonte</strong><p>research/README.md</p><a href="../../acompanhamento/">Voltar ao acompanhamento</a></aside></div></section></main>
+<footer class="site-footer"><div class="container footer-bottom"><span>© EduPredict Analytics · Pesquisa acadêmica</span><span>Documento experimental, sujeito à revisão.</span></div></footer>
+</body></html>

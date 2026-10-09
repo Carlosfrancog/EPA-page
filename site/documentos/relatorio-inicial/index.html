@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#071421"><meta name="description" content="Documento técnico da pesquisa EduPredict Analytics, publicado após revisão."><title>Relatório técnico inicial — EduPredict Analytics</title><link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../assets/styles.css"><script defer src="../../assets/main.js"></script></head><body>
+<a class="skip-link" href="#conteudo">Ir para o conteúdo</a><header class="site-header"><div class="container header-inner"><a class="brand" href="../../" aria-label="EduPredict Analytics, página inicial"><span class="brand-mark" aria-hidden="true">E</span><span><span class="brand-name">EduPredict Analytics</span><span class="brand-small">TGI I → TGI II</span></span></a><button class="menu-button" type="button" data-menu-button aria-expanded="false" aria-controls="navegacao">Menu</button><nav id="navegacao" class="nav" data-nav aria-label="Navegação principal"><a href="../../">Início</a><a href="../../estudo-anterior/">Estudo anterior</a><a href="../../pesquisa-atual/">Pesquisa atual</a><a href="../../banner/">Banner</a><a href="../../acompanhamento/">Acompanhamento</a></nav></div></header>
+<main id="conteudo"><section class="page-hero"><div class="container"><div class="crumbs"><a href="../../">Início</a><span>/</span><a href="../../acompanhamento/">Acompanhamento</a><span>/</span>Documento técnico</div><div class="eyebrow light">Fonte do repositório EPA · experimental</div><h1>Relatório técnico inicial</h1><p>Espelho revisado de um documento técnico do projeto. O conteúdo abaixo não representa resultado final do TGI II.</p></div></section><section class="section"><div class="container article-layout"><article class="article source-doc"><h2>Primeiro experimento da pipeline de pesquisa</h2>
+<blockquote>Este relatório é uma verificação técnica inicial. Ele não deve ser</blockquote>
+<blockquote>transcrito como resultado final do Full Paper antes do congelamento do</blockquote>
+<blockquote>protocolo, da calibração e da revisão do orientador.</blockquote>
+<h3>Execução</h3>
+<ul>
+<li>Registros sintéticos: <strong>62.400</strong></li>
+<li>Registros legados auditados: <strong>15.613</strong></li>
+<li>Resultados gerados: <strong>18</strong></li>
+<li>Artefatos para a API: <strong>3 modelos temporais</strong></li>
+<li>Seed: <strong>20261004</strong></li>
+<li>Fonte sintética: dados gerados localmente, sem estudantes reais.</li>
+</ul>
+<h3>Observação sobre o legado</h3>
+<p>O dataset legado possui <code>status</code> como alvo: status_encoded, status_label. Features suspeitas para auditoria: n4_norm, media_pond_norm. A presença de <code>n4_norm</code> e <code>media_pond_norm</code> impede usar as métricas antigas como resultado oficial sem reconstrução temporal.</p>
+<h3>Próxima validação</h3>
+<ol>
+<li>revisar os rótulos e as faixas de aprovação;</li>
+<li>adicionar calibração e validação cruzada agrupada;</li>
+<li>instalar e avaliar o candidato XGBoost ou CatBoost;</li>
+<li>integrar o snapshot versionado à API;</li>
+<li>repetir o experimento com o protocolo aprovado para o artigo.</li>
+<li>consumir os endpoints <code>/api/research</code> pela interface, mantendo a distinção entre demonstração e resultado oficial.</li>
+</ol><div class="notice"><p><strong>Origem e estágio.</strong> Documento técnico sincronizado do repositório EPA após revisão. Verifique a versão e o contexto antes de citar números como resultados acadêmicos.</p></div></article><aside class="side-index" aria-label="Informações do documento"><strong>Fonte</strong><p>research/reports/initial_pipeline_summary.md</p><a href="../../acompanhamento/">Voltar ao acompanhamento</a></aside></div></section></main>
+<footer class="site-footer"><div class="container footer-bottom"><span>© EduPredict Analytics · Pesquisa acadêmica</span><span>Documento experimental, sujeito à revisão.</span></div></footer>
+</body></html>

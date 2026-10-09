@@ -1,0 +1,47 @@
+name: Propor atualização do EPA
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+  repository_dispatch:
+    types: [epa-updated]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  propose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout da EPA-page
+        uses: actions/checkout@v6
+        with:
+          ref: main
+      - name: Checkout do EPA
+        uses: actions/checkout@v6
+        with:
+          repository: Carlosfrancog/Analise-Preditiva-de-Dados-Educacionais
+          ref: main
+          path: _epa_source
+          token: ${{ secrets.EPA_SOURCE_TOKEN || github.token }}
+      - name: Preparar snapshot revisável
+        run: python scripts/sync-epa.py _epa_source
+      - name: Validar páginas e arquivos locais
+        run: python scripts/check-site.py
+      - name: Abrir ou atualizar PR
+        uses: peter-evans/create-pull-request@v8
+        with:
+          branch: sync/epa
+          delete-branch: true
+          commit-message: 'docs: sincronizar snapshot técnico do EPA'
+          title: 'Revisão: atualização do EPA'
+          body: |
+            Atualiza o status de desenvolvimento e os documentos técnicos selecionados do EPA.
+
+            Revise números, afirmações e estágio das evidências antes de mesclar.
+            O GitHub Pages publica somente após o merge em `main`.
+          add-paths: |
+            site/assets/project-status.json
+            site/documentos/**
